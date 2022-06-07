@@ -1,12 +1,10 @@
 package main
 
-import "fmt"
-
 func main() {
-	cards := newDeck()
+	cards := newDeckFromFile("cards.txt")
+	cards.print()
 
-	cards.saveToFile("cards.txt")
-	hand, _ := deal(cards, 5)
+	cards = newDeckFromFile("unreal")
+	cards.print()
 
-	fmt.Print(hand.toString())
 }
