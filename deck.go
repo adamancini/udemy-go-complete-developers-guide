@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"io/ioutil"
+	"strings"
+)
 
 // create a new type, deck
 // which is a slice of strings
@@ -30,4 +34,18 @@ func (d deck) print() {
 // deal out 'handSize' number of cards and return both sets
 func deal(d deck, handSize int) (deck, deck) {
 	return d[:handSize], d[handSize:]
+}
+
+// save the deck contents to a file on the local machine but first
+// we have to convert a deck to a []string slice, then concatenate to a string,
+// and finally to a []byte slice
+func (d deck) saveToFile(filename string) error {
+	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+// should we use a receiver or pass a deck as an argument to a function?
+// we'll talk about it in the future
+// for argument's sake, it makes sense to make this a receiver
+func (d deck) toString() string {
+	return strings.Join([]string(d), ",")
 }
