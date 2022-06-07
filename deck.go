@@ -20,8 +20,14 @@ func newDeck() deck {
 	return cards
 }
 
+// print the contents of the deck
 func (d deck) print() {
 	for i, card := range d {
 		fmt.Println(i+1, card)
 	}
+}
+
+// deal out 'handSize' number of cards and return both sets
+func deal(d deck, handSize int) (deck, deck) {
+	return d[:handSize], d[handSize:]
 }
