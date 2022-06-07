@@ -1,10 +1,11 @@
+*.zip
 # Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
-
+.vscode
 # Test binary, built with `go test -c`
 *.test
 
