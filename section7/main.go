@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 )
 
 func main() {
@@ -21,19 +22,25 @@ func main() {
 	}
 
 	// fmt.Println(<-c)
-	for i := 0; i < len(links); i++ {
-		fmt.Println(<-c)
+	// for i := 0; i < len(links); i++ {
+	for l := range c {
+		// fmt.Println(<-c)
+		// go checkLink(l,c)
+		go func(link string) {
+			time.Sleep(5 * time.Second)
+			checkLink(link, c)
+		}(l)
 	}
 }
 
 func checkLink(link string, c chan string) {
+	// time.Sleep(5 * time.Second)
 	_, err := http.Get(link) // http.Get() blocks - we want to fix this with goroutines
 	if err != nil {
 		fmt.Println(link, "might be down!")
-		c <- "Might be down I think"
+		c <- link
 		return
 	}
-
 	fmt.Println(link, "is up!")
-	c <- "Yep, it's up"
+	c <- link
 }
